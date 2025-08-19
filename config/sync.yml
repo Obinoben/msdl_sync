@@ -4,13 +4,13 @@ global:
       conf_file: /etc/quadrumane/rclone.cfg
       log_dir: /opt/logs
     options:
-      checksum: true
-      fast-list: true
-      create-empty-src-dirs: true
-      ignore-errors: true
+      checksum: switch_arg
+      fast-list: switch_arg
+      create-empty-src-dirs: switch_arg
+      ignore-errors: switch_arg
       s3-upload-cutoff: 0
-      progress: true
-      metadata: true
+      progress: switch_arg
+      metadata: switch_arg
       multi-thread-streams: 12
       transfers: 12
       checkers: 14
@@ -29,7 +29,7 @@ jobs:
     buckets:
       wasabi: "msdlcn-archives-1990-2009"
       aws: "msdl-archive-backup-lock"
-  - title: "Archives 1990-2009"
+  - title: "Archives 2010-2014"
     type: sync
     source: wasabi
     target: aws
@@ -39,7 +39,7 @@ jobs:
     buckets:
       wasabi: "msdlcn-archives-2010-2014"
       aws: "msdl-archive-backup-lock"
-  - title: "Archives 1990-2009"
+  - title: "Archives 2015-2019"
     type: sync
     source: wasabi
     target: aws
@@ -49,7 +49,7 @@ jobs:
     buckets:
       wasabi: "msdlcn-archives-2015-2019"
       aws: "msdl-archive-backup-lock"
-  - title: "Archives 1990-2009"
+  - title: "Archives 2020-2024"
     type: sync
     source: wasabi
     target: aws
@@ -59,7 +59,7 @@ jobs:
     buckets:
       wasabi: "msdlcn-archives-2020-2024"
       aws: "msdl-archive-backup-lock"
-  - title: "Archives 1990-2009"
+  - title: "Archives 2025-2029"
     type: sync
     source: wasabi
     target: aws
@@ -69,7 +69,7 @@ jobs:
     buckets:
       wasabi: "msdlcn-archives-2025-2029"
       aws: "msdl-archive-backup-lock"
-  - title: "Archives 1990-2009"
+  - title: "Archives administration"
     type: sync
     source: wasabi
     target: aws
