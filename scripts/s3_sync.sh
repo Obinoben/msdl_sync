@@ -27,6 +27,19 @@ for i in $(seq 0 $((count-1))); do
     type=$(cat $sync_conf_file | shyaml get-value jobs.$i.type)
     create_subfolder=$(cat $sync_conf_file | shyaml get-value jobs.$i.create_subfolder)
 
+    source_provider=$(cat $sync_conf_file | shyaml get-value jobs.$i.source)
+    source_bucket=$(cat $sync_conf_file | shyaml get-value jobs.$i.buckets.${source_provider})
+    source_provider_name=$(cat $sync_conf_file | shyaml get-value global.rclone.providers.${source_provider})
+    source_cmd="${source_provider_name}:${source_bucket}"
+
+    target_provider=$(cat $sync_conf_file | shyaml get-value jobs.$i.target)
+    target_bucket=$(cat $sync_conf_file | shyaml get-value jobs.$i.buckets.${target_provider})
+    target_provider_name=$(cat $sync_conf_file | shyaml get-value global.rclone.providers.${target_provider})
+    target_cmd="${target_provider_name}:${target_bucket}"
+    if [[ "$create_subfolder" == "True" ]]; then
+      target_cmd="${target_cmd}/${source_bucket}/"
+    fi
+
 
     frequency=$(cat $sync_conf_file | shyaml get-value jobs.$i.frequency)
     now_timestamp=$(date +%s)
@@ -53,19 +66,7 @@ for i in $(seq 0 $((count-1))); do
     else
       echo "${title}: TO RUN - first execution"
     fi
-
-    source_provider=$(cat $sync_conf_file | shyaml get-value jobs.$i.source)
-    source_bucket=$(cat $sync_conf_file | shyaml get-value jobs.$i.buckets.${source_provider})
-    source_provider_name=$(cat $sync_conf_file | shyaml get-value global.rclone.providers.${source_provider})
-    source_cmd="${source_provider_name}:${source_bucket}"
-
-    target_provider=$(cat $sync_conf_file | shyaml get-value jobs.$i.target)
-    target_bucket=$(cat $sync_conf_file | shyaml get-value jobs.$i.buckets.${target_provider})
-    target_provider_name=$(cat $sync_conf_file | shyaml get-value global.rclone.providers.${target_provider})
-    target_cmd="${target_provider_name}:${target_bucket}"
-    if [[ "$create_subfolder" == "True" ]]; then
-      target_cmd="${target_cmd}/${source_bucket}/"
-    fi
+    
 
     log_file="--log-file=${log_dir}/"${source_bucket}".log"
 
