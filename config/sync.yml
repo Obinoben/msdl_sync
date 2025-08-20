@@ -14,7 +14,7 @@ global:
       multi-thread-streams: 12
       transfers: 12
       checkers: 14
-      excludes: "/.tt_rt/**"
+      exclude: "/.tt_rt/**"
     providers:
       wasabi: WasabiCN
       aws: AWS
