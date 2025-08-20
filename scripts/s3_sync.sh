@@ -19,7 +19,7 @@ for key in $(cat $sync_conf_file | shyaml keys global.rclone.options); do
   esac
 done
 
-rclone_base_cmd="rclone sync $rclone_conf_file $rclone_options"
+rclone_base_cmd="rclone sync --config $rclone_conf_file $rclone_options"
 
 count=$(cat $sync_conf_file | shyaml get-length jobs)
 for i in $(seq 0 $((count-1))); do
