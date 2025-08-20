@@ -19,8 +19,6 @@ for key in $(cat $sync_conf_file | shyaml keys global.rclone.options); do
   esac
 done
 
-rclone_base_cmd="rclone sync --config $rclone_conf_file $rclone_options"
-
 count=$(cat $sync_conf_file | shyaml get-length jobs)
 for i in $(seq 0 $((count-1))); do
     title=$(cat $sync_conf_file | shyaml get-value jobs.$i.title)
@@ -70,7 +68,7 @@ for i in $(seq 0 $((count-1))); do
 
     log_file="--log-file=${log_dir}/"${source_bucket}".log"
 
-    rclone_cmd="rclone $type $rclone_conf_file $source_cmd $target_cmd $rclone_options $log_file"
+    rclone_cmd="rclone $type --config $rclone_conf_file $source_cmd $target_cmd $rclone_options $log_file"
 
     echo "${title}: Running in $type mode"
     flock -n /tmp/s3_sync_${source_bucket} ${rclone_cmd}
