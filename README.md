@@ -1,13 +1,15 @@
 ##Repository config:
+
 On the linux server generate a SSH key :
-  ssh-keygen
+    ssh-keygen
 
 Add the public key :
-  cat cat ~/.ssh/id_ed25519.pub
+  cat ~/.ssh/id_ed25519.pub
 
 To the github deploy keys, without write permission.
 
 ##Dependencies:
+
 Install the needed packages:
   apt update
   apt upgrade
@@ -15,6 +17,7 @@ Install the needed packages:
   pip install shyaml --break-system-packages
 
 ##Installation:
+
   cd /opt
   git clone git@github.com:Obinoben/msdl_sync.git
 
