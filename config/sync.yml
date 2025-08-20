@@ -16,60 +16,24 @@ global:
       checkers: 14
       exclude: "/.tt_rt/**"
     providers:
-      wasabi: WasabiCN
-      aws: AWS
+      wasabi: WasabiRessource
+      aws: AWSRessource
 jobs:
-  - title: "Archives 1990-2009"
+  - title: "Dossier trop bien"
     type: sync
     source: wasabi
     target: aws
     frequency: daily
     create_subfolder: true
     buckets:
-      wasabi: "msdlcn-archives-1990-2009"
-      aws: "msdl-archive-backup-lock"
-  - title: "Archives 2010-2014"
+      wasabi: "bucket_trop_bien"
+      aws: "backup_bucket_trop_bien"
+  - title: "Un autre super dossier"
     type: sync
     source: wasabi
     target: aws
     frequency: daily
     create_subfolder: true
     buckets:
-      wasabi: "msdlcn-archives-2010-2014"
-      aws: "msdl-archive-backup-lock"
-  - title: "Archives 2015-2019"
-    type: sync
-    source: wasabi
-    target: aws
-    frequency: daily
-    create_subfolder: true
-    buckets:
-      wasabi: "msdlcn-archives-2015-2019"
-      aws: "msdl-archive-backup-lock"
-  - title: "Archives 2020-2024"
-    type: sync
-    source: wasabi
-    target: aws
-    frequency: daily
-    create_subfolder: true
-    buckets:
-      wasabi: "msdlcn-archives-2020-2024"
-      aws: "msdl-archive-backup-lock"
-  - title: "Archives 2025-2029"
-    type: sync
-    source: wasabi
-    target: aws
-    frequency: daily
-    create_subfolder: true
-    buckets:
-      wasabi: "msdlcn-archives-2025-2029"
-      aws: "msdl-archive-backup-lock"
-  - title: "Archives administration"
-    type: sync
-    source: wasabi
-    target: aws
-    frequency: daily
-    create_subfolder: true
-    buckets:
-      wasabi: "msdlcn-archives-administration"
-      aws: "msdl-archive-backup-lock"
+      wasabi: "autre_bucket_de_ouf"
+      aws: "backup_autre_bucket_de_ouf"
