@@ -24,7 +24,6 @@ jobs:
     source: wasabi
     target: aws
     frequency: daily
-    last_completed: null
     create_subfolder: true
     buckets:
       wasabi: "msdlcn-archives-1990-2009"
@@ -34,7 +33,6 @@ jobs:
     source: wasabi
     target: aws
     frequency: daily
-    last_completed: null
     create_subfolder: true
     buckets:
       wasabi: "msdlcn-archives-2010-2014"
@@ -44,7 +42,6 @@ jobs:
     source: wasabi
     target: aws
     frequency: daily
-    last_completed: null
     create_subfolder: true
     buckets:
       wasabi: "msdlcn-archives-2015-2019"
@@ -54,7 +51,6 @@ jobs:
     source: wasabi
     target: aws
     frequency: daily
-    last_completed: null
     create_subfolder: true
     buckets:
       wasabi: "msdlcn-archives-2020-2024"
@@ -64,7 +60,6 @@ jobs:
     source: wasabi
     target: aws
     frequency: daily
-    last_completed: null
     create_subfolder: true
     buckets:
       wasabi: "msdlcn-archives-2025-2029"
@@ -74,7 +69,6 @@ jobs:
     source: wasabi
     target: aws
     frequency: daily
-    last_completed: null
     create_subfolder: true
     buckets:
       wasabi: "msdlcn-archives-administration"
