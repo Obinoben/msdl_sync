@@ -66,14 +66,14 @@ for i in $(seq 0 $((count-1))); do
     else
       echo "${title}: TO RUN - first execution"
     fi
-    
+
 
     log_file="--log-file=${log_dir}/"${source_bucket}".log"
 
     rclone_cmd="rclone $type $rclone_conf_file $source_cmd $target_cmd $rclone_options $log_file"
 
     echo "${title}: Running in $type mode"
-    echo "echo flock -n /tmp/s3_sync_${source_bucket} ${rclone_cmd}"
+    flock -n /tmp/s3_sync_${source_bucket} ${rclone_cmd}
     state=$?
 
     global_exit_code=$(( $global_exit_code + $state ))
