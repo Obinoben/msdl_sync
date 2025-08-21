@@ -120,6 +120,7 @@ class syncer:
             with open(self.last_success_file) as f:
                 last_success = int(f.read().strip())
             last_success_age = now_timestamp - last_success
+            print(last_success_age)
 
             ## Last run too young - skip this run
             if last_success_age < self.max_age_seconds:
