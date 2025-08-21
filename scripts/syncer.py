@@ -73,6 +73,7 @@ class syncer:
             self.create_subfolder = self.job.get("create_subfolder", False)
             self.max_age_days = self.job.get("max_age_days", 30)
             self.max_age_seconds = self.max_age_days * 86400
+            self.force = self.syncer.force
             self.state = 0
 
             self.source_cmd, self.source_bucket = self.get_rclone_bucket_command("source")
@@ -126,7 +127,7 @@ class syncer:
                 return False
 
             ## Always run if forced
-            if self.syncer.force:
+            if self.force:
                 self.syncer.logger.debug(f"{self.title}: TO RUN - Forced by argument regardless of dueness")
                 return True
 
@@ -202,6 +203,8 @@ class syncer:
 
         self.logger.debug(f"Chosen bucket to sync: {self.bucket}")
         for job in self.job_handlers:
+            if job.source_bucket == self.bucket:
+                job.force = True
             job.is_job_runnable()
 
 
