@@ -47,7 +47,7 @@ class syncer:
                 self.target_cmd = f"{self.target_cmd}/{self.source_bucket}/"
 
             self.last_success_file = os.path.join(self.syncer.log_dir, f"{self.source_bucket}.last_success")
-            self.run = self.is_job_runnable
+            self.run = self.is_job_runnable()
             self.log_file = os.path.join(self.syncer.log_dir, f"{self.source_bucket}.log")
 
         def get_rclone_bucket_command(self, context):
