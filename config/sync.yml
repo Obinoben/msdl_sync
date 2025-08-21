@@ -23,7 +23,7 @@ jobs:
     type: sync
     source: wasabi
     target: aws
-    frequency: daily
+    max_age_days: 1
     create_subfolder: true
     buckets:
       wasabi: "bucket_trop_bien"
@@ -32,7 +32,7 @@ jobs:
     type: sync
     source: wasabi
     target: aws
-    frequency: daily
+    max_age_days: 1
     create_subfolder: true
     buckets:
       wasabi: "autre_bucket_de_ouf"

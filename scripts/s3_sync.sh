@@ -39,19 +39,11 @@ for i in $(seq 0 $((count-1))); do
     fi
 
 
-    frequency=$(cat $sync_conf_file | shyaml get-value jobs.$i.frequency)
     now_timestamp=$(date +%s)
-    case $frequency in
-      daily)
-          max_age_days=1
-          ;;
-      weekly)
-          max_age_days=7
-          ;;
-      *)
-          max_age_days=30
-          ;;
-    esac
+    max_age_days=$(cat $sync_conf_file | shyaml get-value jobs.$i.max_age_days)
+    if [[ "$max_age_days" == "" ]]; then
+      max_age_days=30
+    fi
     max_age_seconds=$(( $max_age_days * 86400 ))
     if [ -f ${log_dir}/${source_bucket}.last_success ]; then
       last_success=$(cat ${log_dir}/${source_bucket}.last_success)
