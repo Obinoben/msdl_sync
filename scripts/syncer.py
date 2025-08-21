@@ -158,7 +158,7 @@ class syncer:
             if self.state == 0:
                 self.syncer.logger.info(">>> Success")
                 with open(self.last_success_file, "w") as f:
-                    f.write(str(time.time()))
+                    f.write(str(int(time.time())))
             else:
                 self.syncer.logger.critical(">>> Failed")
 
