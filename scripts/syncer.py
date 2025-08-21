@@ -38,6 +38,7 @@ class syncer:
             self.create_subfolder = self.job.get("create_subfolder", False)
             self.max_age_days = self.job.get("max_age_days", 30)
             self.max_age_seconds = self.max_age_days * 86400
+            self.state = 0
 
             self.source_cmd, self.source_bucket = self.get_rclone_bucket_command("source")
             self.target_cmd, self.target_bucket = self.get_rclone_bucket_command("target")
@@ -133,7 +134,6 @@ class syncer:
 
             if self.dry_run:
                 print(">>> Dry run: skipping execution")
-                state = 0
             else:
                 job_handler.run_command()
 
