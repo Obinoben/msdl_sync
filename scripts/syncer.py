@@ -120,8 +120,6 @@ class syncer:
             with open(self.last_success_file) as f:
                 last_success = int(f.read().strip())
             last_success_age = now_timestamp - last_success
-            print(last_success_age)
-            print(self.max_age_seconds)
 
             ## Last run too young - skip this run
             if last_success_age < self.max_age_seconds:
@@ -132,7 +130,7 @@ class syncer:
             ## Last run too old - need a run
             self.syncer.logger.debug(f"{self.title}: TO RUN - too old (last success on "
                   f"{time.strftime('%Y-%m-%d at %H:%M:%S', time.localtime(last_success))})")
-            self.run = True
+            return True
 
         def is_job_runnable(self):
             ## Skip this job if not asked for
