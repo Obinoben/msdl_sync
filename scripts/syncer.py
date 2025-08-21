@@ -223,7 +223,7 @@ def main():
     )
     parser.add_argument(
         "-s", "--silent",
-        action="store_false",
+        action="store_true",
         help="Went true: force a non-interractive mode for scripting"
     )
     parser.add_argument(
@@ -256,7 +256,8 @@ def main():
                      bucket = args.bucket,
                      force = args.force,
                      logger = logger)
-    handler.jobs_interractive_choice()
+    if not args.silent:
+        handler.jobs_interractive_choice()
     handler.jobs_loop()
 
 if __name__ == "__main__":
