@@ -201,6 +201,8 @@ class syncer:
             self.bucket = "all"
 
         self.logger.debug(f"Chosen bucket to sync: {self.bucket}")
+        for job in self.job_handlers:
+            job.is_job_runnable()
 
 
 
