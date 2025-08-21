@@ -155,7 +155,6 @@ class syncer:
                     self.syncer.logger.warning(f"{self.title}: Another process is already running for {self.source_bucket}, skipping.")
                     self.state = 1
 
-        def exit_command(self):
             if self.state == 0:
                 self.syncer.logger.info(">>> Success")
                 with open(self.last_success_file, "w") as f:
