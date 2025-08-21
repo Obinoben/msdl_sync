@@ -206,7 +206,7 @@ class syncer:
         for job in self.job_handlers:
             if job.source_bucket == self.bucket:
                 job.force = True
-            job.is_job_runnable()
+            job.run = job.is_job_runnable()
 
 
 
