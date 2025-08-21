@@ -10,25 +10,37 @@ import sys
 import logging
 import logging.handlers
 
+class ColoredFormatter(logging.Formatter):
+    COLORS = {
+        "DEBUG": "\033[94m",    # bleu clair
+        "INFO": "\033[92m",     # vert
+        "WARNING": "\033[93m",  # jaune
+        "ERROR": "\033[91m",    # rouge
+        "CRITICAL": "\033[95m", # magenta
+    }
+    RESET = "\033[0m"
+
+    def format(self, record):
+        msg = super().format(record)
+        color = self.COLORS.get(record.levelname, "")
+        return f"{color}{msg}{self.RESET}"
+
 def setup_logger(debug=False):
     logger = logging.getLogger("sync")
 
-    # Niveau de log
     if debug:
         logger.setLevel(logging.DEBUG)
     else:
         logger.setLevel(logging.INFO)
 
-    # Handler vers syslog
+    # Syslog handler (sans couleur)
     syslog_handler = logging.handlers.SysLogHandler(address="/dev/log")
-    formatter = logging.Formatter("%(name)s[%(process)d]: %(levelname)s - %(message)s")
-    syslog_handler.setFormatter(formatter)
+    syslog_handler.setFormatter(logging.Formatter("%(name)s[%(process)d]: %(levelname)s - %(message)s"))
 
-    # Handler vers stdout
-    stream_handler = logging.StreamHandler(sys.stdout)
-    stream_handler.setFormatter(logging.Formatter("%(levelname)s - %(message)s"))
+    # Stream handler avec couleur
+    stream_handler = logging.StreamHandler()
+    stream_handler.setFormatter(ColoredFormatter("%(levelname)s - %(message)s"))
 
-    # Éviter doublons si setup_logger est appelé plusieurs fois
     if not logger.handlers:
         logger.addHandler(syslog_handler)
         logger.addHandler(stream_handler)
