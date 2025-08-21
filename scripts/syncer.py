@@ -30,7 +30,7 @@ class syncer:
                 self.rclone_options.append(f"--{key}={value}")
 
         self.jobs = self.config.get("jobs", [])
-        if not jobs:
+        if not self.jobs:
             print("No job listed in configuration - exiting")
             sys.exit(1)
         self.jobs_list()
@@ -153,7 +153,7 @@ class syncer:
         if self.bucket != "all":
             print(f"Bucket to sync already known ({self.bucket})")
             return
-            
+
         print("Available jobs:")
         for job in self.job_handlers:
             print(f"  * {job.title} - Bucket: {job.source_bucket}")
