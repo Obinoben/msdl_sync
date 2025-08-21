@@ -65,7 +65,7 @@ class syncer:
 
             ## Always run if forced
             if self.syncer.force:
-                print(f"{title}: TO RUN - Forced by argument")
+                print(f"{self.title}: TO RUN - Forced by argument")
                 return True
 
             ## Check age
