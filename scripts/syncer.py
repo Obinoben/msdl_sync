@@ -210,8 +210,8 @@ class syncer:
             print(f"  * {job.title} - Bucket: {job.source_bucket}")
         # Choix utilisateur
         self.bucket = input("\nEnter bucket name or 'all': ").strip()
-        if self.bucket == "":
-            self.bucket = "all"
+        # if self.bucket == "":
+        #     self.bucket = "all"
 
         self.logger.debug(f"Chosen bucket to sync: {self.bucket}")
         for job in self.job_handlers:
