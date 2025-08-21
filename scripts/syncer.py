@@ -85,8 +85,7 @@ class syncer:
 
             self.wanted = self.syncer.bucket == "all" or self.syncer.bucket == self.source_bucket
             self.fisrt_time = not os.path.exists(self.last_success_file)
-            self.due = self.is_job_due()
-            self.run = self.wanted and (self.syncer.force or self.due)
+            self.run = self.is_job_runnable()
 
 
         def get_rclone_bucket_command(self, context):
@@ -97,16 +96,6 @@ class syncer:
             return command, bucket
 
         def is_job_due(self):
-            # ## Skip this job if not asked for
-            # if not self.wanted:
-            #     print(f"{self.title}: SKIPPED - Not the wanted bucket ({self.syncer.bucket})")
-            #     return False
-            #
-            # ## Always run if forced
-            # if self.syncer.force:
-            #     print(f"{self.title}: TO RUN - Forced by argument")
-            #     return True
-
             ## Check age
             now_timestamp = int(time.time())
 
@@ -129,6 +118,22 @@ class syncer:
             self.syncer.logger.debug(f"{self.title}: TO RUN - too old (last success on "
                   f"{time.strftime('%Y-%m-%d at %H:%M:%S', time.localtime(last_success))})")
             self.run = True
+
+        def is_job_runnable(self):
+            ## Skip this job if not asked for
+            if not self.wanted:
+                self.syncer.logger.debug(f"{self.title}: SKIPPED - Not the wanted bucket ({self.syncer.bucket})")
+                return False
+
+            ## Always run if forced
+            if self.syncer.force:
+                self.syncer.logger.debug(f"{self.title}: TO RUN - Forced by argument regardless of dueness")
+                return True
+
+            ## Skip not due job
+            self.due = self.is_job_due()
+            return self.due
+
 
         def get_rclone_command(self):
             self.command = [
