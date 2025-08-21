@@ -29,6 +29,12 @@ class syncer:
             else:
                 self.rclone_options.append(f"--{key}={value}")
 
+        self.jobs = self.config.get("jobs", [])
+        if not jobs:
+            print("No job listed in configuration - exiting")
+            sys.exit(1)
+        self.jobs_list()
+
     class jobject:
         def __init__(self, job, syncer):
             self.syncer = syncer
@@ -118,10 +124,14 @@ class syncer:
             else:
                 print(">>> Failed")
 
+    def jobs_list(self):
+        self.job_handlers = list()
+        for job in self.jobs:
+            self.job_handlers.append(self.jobject(job = job, syncer = self))
+
     def jobs_loop(self):
         # Traitement des jobs
-        for job in self.config.get("jobs", []):
-            job_handler = self.jobject(job = job, syncer = self)
+        for job_handler in self.job_handlers:
             if not job_handler.run:
                 continue
 
@@ -129,7 +139,6 @@ class syncer:
 
             if self.verbose:
                 print(" ".join(job_handler.command))
-
             print(f"{job_handler.title}: Running in {job_handler.sync_type} mode")
 
             if self.dry_run:
@@ -138,10 +147,20 @@ class syncer:
                 job_handler.run_command()
 
             self.global_exit_code += job_handler.state
-
-
         sys.exit(self.global_exit_code)
 
+    def jobs_interractive_choice(self):
+        if self.bucket != "all":
+            print(f"Bucket to sync already known ({self.bucket})")
+            return
+            
+        print("Available jobs:")
+        for job in self.job_handlers:
+            print(f"  * {job.title} - Bucket: {job.source_bucket}")
+        # Choix utilisateur
+        self.bucket = input("\nEnter bucket name or 'all': ").strip()
+        if self.bucket == "":
+            self.bucket = "all"
 
 
 
@@ -156,6 +175,11 @@ def main():
         "-f", "--force",
         action="store_true",
         help="Ignore the schedule, run anyway"
+    )
+    parser.add_argument(
+        "-s", "--silent",
+        action="store_false",
+        help="Went true: force a non-interractive mode for scripting"
     )
     parser.add_argument(
         "-c", "--config",
@@ -179,7 +203,7 @@ def main():
                      dry_run = args.dry_run,
                      bucket = args.bucket,
                      force = args.force)
-
+    handler.jobs_interractive_choice()
     handler.jobs_loop()
 
 if __name__ == "__main__":
