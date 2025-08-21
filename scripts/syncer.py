@@ -102,7 +102,7 @@ class syncer:
 
         def run_command(self):
             self.lock_file = f"/tmp/s3_sync_{self.source_bucket}"
-            with open(lock_file, "w") as lf:
+            with open(self.lock_file, "w") as lf:
                 try:
                     fcntl.flock(lf, fcntl.LOCK_EX | fcntl.LOCK_NB)
                     self.state = subprocess.call(self.command)
