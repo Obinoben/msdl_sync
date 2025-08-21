@@ -93,7 +93,7 @@ class syncer:
 
         def get_rclone_command(self):
             self.command = [
-                "rclone_dummy", self.sync_type,
+                "rclone", self.sync_type,
                 "--config", self.syncer.rclone_conf_file,
                 self.source_cmd, self.target_cmd,
                 *self.syncer.rclone_options,
