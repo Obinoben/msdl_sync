@@ -96,7 +96,7 @@ class syncer:
             self.log_file = os.path.join(self.syncer.log_dir, f"{self.source_bucket}.log")
             self.last_success_file = os.path.join(self.syncer.log_dir, f"{self.source_bucket}.last_success")
 
-            self.wanted = self.syncer.bucket == "all" or self.syncer.bucket == self.source_bucket
+            self.wanted = False
             self.fisrt_time = not os.path.exists(self.last_success_file)
             self.run = self.is_job_runnable()
 
@@ -134,6 +134,7 @@ class syncer:
 
         def is_job_runnable(self):
             ## Skip this job if not asked for
+            self.wanted = self.syncer.bucket != "none" and (self.syncer.bucket == "all" or self.syncer.bucket == self.source_bucket)
             if not self.wanted:
                 self.syncer.logger.debug(f"{self.title}: SKIPPED - Not the wanted bucket ({self.syncer.bucket})")
                 return False
@@ -210,17 +211,14 @@ class syncer:
             print(f"  * {job.title} - Bucket: {job.source_bucket}")
         # Choix utilisateur
         self.bucket = input("\nEnter bucket name or 'all': ").strip()
-        # if self.bucket == "":
-        #     self.bucket = "all"
+        if self.bucket == "":
+            self.bucket = "none"
 
         self.logger.debug(f"Chosen bucket to sync: {self.bucket}")
         for job in self.job_handlers:
             if job.source_bucket == self.bucket:
                 job.force = True
-            if self.bucket == "":
-                job.run = False
-            else:
-                job.run = job.is_job_runnable()
+            job.run = job.is_job_runnable()
 
 
 
