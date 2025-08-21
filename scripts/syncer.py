@@ -120,7 +120,7 @@ class syncer:
     def jobs_loop(self):
         # Traitement des jobs
         for job in self.config.get("jobs", []):
-            job_handler = jobject(job = job, syncer = self)
+            job_handler = self.jobject(job = job, syncer = self)
             if not job_handler.run:
                 continue
 
