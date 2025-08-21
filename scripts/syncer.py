@@ -73,7 +73,7 @@ class syncer:
 
             # First run
             if not os.path.exists(self.last_success_file):
-                print(f"{title}: TO RUN - first execution")
+                print(f"{self.title}: TO RUN - first execution")
                 return True
 
             with open(self.last_success_file) as f:
@@ -82,12 +82,12 @@ class syncer:
 
             ## Last run too young - skip this run
             if last_success_age < self.max_age_seconds:
-                print(f"{title}: SKIPPED - too recent (last success on "
+                print(f"{self.title}: SKIPPED - too recent (last success on "
                       f"{time.strftime('%Y-%m-%d at %H:%M:%S', time.localtime(last_success))})")
                 return False
 
             ## Last run too old - need a run
-            print(f"{title}: TO RUN - too old (last success on "
+            print(f"{self.title}: TO RUN - too old (last success on "
                   f"{time.strftime('%Y-%m-%d at %H:%M:%S', time.localtime(last_success))})")
             return True
 
