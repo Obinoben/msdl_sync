@@ -140,7 +140,7 @@ class syncer:
             self.global_exit_code += job_handler.state
 
 
-        sys.exit(global_exit_code)
+        sys.exit(self.global_exit_code)
 
 
 
