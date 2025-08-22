@@ -172,6 +172,22 @@ class syncer:
                 self.syncer.logger.info(">>> Success")
                 with open(self.last_success_file, "w") as f:
                     f.write(str(int(time.time())))
+                try:
+                    ntfy_command = list()
+                    ntfy_command.append("/opt/msdl_sync/scripts/report_ntfy.py")
+                    ntfy_command.append("--client")
+                    ntfy_command.append("MSDL_Archives")
+                    ntfy_command.append("--vm")
+                    ntfy_command.append(self.source_bucket)
+                    ntfy_command.append("--status")
+                    ntfy_command.append(self.state)
+                    ntfy_command.append("--gap")
+                    ntfy_command.append(self.max_age_days)
+                    self.state = subprocess.call(ntfy_command)
+                    self.syncer.logger.debug(f"{self.title}: Report sent to monitoring.")
+                except BlockingIOError:
+                    self.syncer.logger.critical(f"{self.title}: Unable to send report to monitoring.")
+                    self.state = 1
             else:
                 self.syncer.logger.critical(">>> Failed")
 
