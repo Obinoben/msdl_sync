@@ -62,15 +62,15 @@ data = {
         "type": "backup",
         "result": str(args.status),
         "gap": args.gap,
-        "days": [
-            { "monday": "21:00" },
-            { "tuesday": "21:00" },
-            { "wednesday": "21:00" },
-            { "thursday": "21:00" },
-            { "friday": "21:00" },
-            { "saturday": "21:00" },
-            { "sunday": "21:00" }
-        ]
+        "days": {
+            "monday": "21:00",
+            "tuesday": "21:00",
+            "wednesday": "21:00",
+            "thursday": "21:00",
+            "friday": "21:00",
+            "saturday": "21:00",
+            "sunday": "21:00"
+        }
     }]
 }
 
