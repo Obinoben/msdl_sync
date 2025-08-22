@@ -59,7 +59,7 @@ data = {
     "backups": [{
         "vm": args.vm,
         "date": time_to_string(time()),
-        "type": "sync",
+        "type": "backup",
         "result": str(args.status),
         "gap": args.gap,
         "days": [
@@ -73,6 +73,8 @@ data = {
         ]
     }]
 }
+
+print(data)
 
 # === CHIFFREMENT ET ENVOI ===
 plaintext = json.dumps(data, ensure_ascii=False)
