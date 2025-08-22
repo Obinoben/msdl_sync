@@ -59,9 +59,18 @@ data = {
     "backups": [{
         "vm": args.vm,
         "date": time_to_string(time()),
-        "type": "backup",
+        "type": "sync",
         "result": str(args.status),
-        "gap": args.gap
+        "gap": args.gap,
+        "days": [
+            { "monday": "21:00" },
+            { "tuesday": "21:00" },
+            { "wednesday": "21:00" },
+            { "thursday": "21:00" },
+            { "friday": "21:00" },
+            { "saturday": "21:00" },
+            { "sunday": "21:00" }
+        ]
     }]
 }
 
