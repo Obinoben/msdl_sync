@@ -180,9 +180,10 @@ class syncer:
                     ntfy_command.append("--vm")
                     ntfy_command.append(self.source_bucket)
                     ntfy_command.append("--status")
-                    ntfy_command.append(self.state)
+                    ntfy_command.append(str(self.state))
                     ntfy_command.append("--gap")
-                    ntfy_command.append(self.max_age_days)
+                    ntfy_command.append(str(self.max_age_days))
+                    print(ntfy_command)
                     self.state = subprocess.call(ntfy_command)
                     self.syncer.logger.debug(f"{self.title}: Report sent to monitoring.")
                 except BlockingIOError:
