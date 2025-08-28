@@ -31,7 +31,7 @@ update_monday_item $MONDAY_BOARD $MONDAY_ITEM "status" "Traitement"
 global=0
 for archive in $(echo "$m" | jq -r '.archives' | sed 's/,//g'); do
   echo "Lance la synchronisation de ${archive}"
-  ${SCRIPT_DIR}/syncer.py -s -b ${archive}
+  ${SCRIPT_DIR}/syncer.py -s -b ${archive} --force
   global=$(( $global + $? ))
 done
 
