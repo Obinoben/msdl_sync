@@ -28,7 +28,7 @@ update_monday_item () {
 
 
 echo "Message reçu"
-update_monday_item $MONDAY_ITEM "status" "{\"label\":\"Traitement\"}"
+update_monday_item $MONDAY_ITEM "status" '{"label":"Traitement"}'
 global=0
 for archive in $(echo "$m" | jq -r '.archives' | sed 's/,//g'); do
   echo "Lance la synchronisation de ${archive}"
@@ -38,10 +38,10 @@ done
 
 if [[ $global -eq 0 ]]; then
   echo "Tout a fonctionné"
-  update_monday_item $MONDAY_ITEM "status" "{\"label\":\"Succès\"}"
+  update_monday_item $MONDAY_ITEM "status" '{"label":"Succès"}'
 else
   echo "Erreur de sync"
-  update_monday_item $MONDAY_ITEM "status" "{\"label\":\"Échec\"}"
+  update_monday_item $MONDAY_ITEM "status" '{"label":"Échec"}'
 fi
 
 exit $global
