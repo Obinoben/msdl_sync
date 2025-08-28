@@ -19,9 +19,9 @@ update_monday_item () {
   QUERY_JSON=$(jq -n --arg item "$item_id" \
                     --arg board "$board_id" \
                     --arg column "$column_id" \
-                    --argjson val "$value" \
+                    --arg val "$value" \
                     '{"query": "mutation { change_simple_column_value(item_id: \($item), board_id: \($board), column_id: \($column), value: \($val)) { id } }"}')
-  echo $QUERY_JSON
+
   curl -s -X POST "https://api.monday.com/v2" \
     -H "Authorization: $MONDAY_API_KEY" \
     -H "Content-Type: application/json" \
