@@ -9,7 +9,7 @@ update_monday_item () {
   local column_id="$2"
   local value="$3"
 
-  value=$(echo "$value" | sed 's/"/\\\\"/g')
+  value=$(echo "$value" | sed 's/"/\\\\\\\"/g')
 
   curl -s -X POST "https://api.monday.com/v2" \
     -H "Authorization: $MONDAY_API_KEY" \
