@@ -3,6 +3,7 @@
 echo $m
 
 
-for archive in $(echo "$m" | jq -r '.archives'); do
+for archive in $(echo "$m" | jq -r '.archives' | sed 's/,//g'); do
+
   echo $archive
 done
