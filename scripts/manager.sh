@@ -21,7 +21,7 @@ update_monday_item () {
                     --arg column "$column_id" \
                     --arg val "$value" \
                     '{"query": "mutation { change_simple_column_value(item_id: \($item), board_id: \($board), column_id: \($column), value: \($val)) { id } }"}')
-
+  QUERY_JSON="{\"query\": \"mutation { change_simple_column_value(item_id: $item_id, board_id: $board_id, column_id: \\\"$column_id\\\", value: \\\"$value\\\") { id } }\"}"
   curl -s -X POST "https://api.monday.com/v2" \
     -H "Authorization: $MONDAY_API_KEY" \
     -H "Content-Type: application/json" \
