@@ -32,7 +32,7 @@ update_log () {
   local push=$2
 
   echo $message
-  LOG="${LOG}${message}\n"
+  LOG="${LOG}${message}\\\n"
 
   if [[ $push -eq 1 ]]; then
     update_monday_item $MONDAY_BOARD $MONDAY_ITEM "long_text_mkv9xgaz" "$LOG"
