@@ -35,7 +35,7 @@ update_log () {
   LOG="${LOG}${message}\n"
 
   if [[ $push -eq 1 ]]; then
-    update_monday_item $MONDAY_BOARD $MONDAY_ITEM "text_mkv9fhe0" "$LOG"
+    update_monday_item $MONDAY_BOARD $MONDAY_ITEM "long_text_mkv9xgaz" "$LOG"
   fi
 }
 
