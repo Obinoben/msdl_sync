@@ -36,7 +36,7 @@ def setup_logger(debug=False):
     # Syslog handler (sans couleur)
     syslog_handler = logging.handlers.SysLogHandler(address="/dev/log")
     syslog_formatter = logging.Formatter(
-        "%(asctime)s %(name)s[%(process)d]: %(levelname)s - %(message)s",
+        "%(asctime)s > %(name)s[%(process)d]: %(levelname)s - %(message)s",
         datefmt="%Y-%m-%d %H:%M:%S"
     )
     syslog_handler.setFormatter(syslog_formatter)
@@ -44,7 +44,7 @@ def setup_logger(debug=False):
     # Stream handler avec couleur
     stream_handler = logging.StreamHandler()
     stream_formatter = ColoredFormatter(
-        "%(asctime)s %(levelname)s - %(message)s",
+        "%(asctime)s > %(levelname)s - %(message)s",
         datefmt="%Y-%m-%d %H:%M:%S"
     )
     stream_handler.setFormatter(stream_formatter)
