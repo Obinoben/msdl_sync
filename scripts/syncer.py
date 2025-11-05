@@ -209,7 +209,7 @@ class syncer:
         # Traitement des jobs
         for job_handler in self.job_handlers:
             if not job_handler.run:
-                self.logger.debug(f"{job_handler.title} - Job is set not to be runned")
+                self.logger.debug(f"{job_handler.title} - Job is set not to run")
                 continue
 
             job_handler.get_rclone_command()
