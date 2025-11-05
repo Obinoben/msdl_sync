@@ -91,7 +91,9 @@ class syncer:
             self.title = self.job["title"]
             self.sync_type = self.job["type"]
             self.create_subfolder = self.job.get("create_subfolder", False)
+            self.min_age_days = self.job.get("min_age_days", 0)
             self.max_age_days = self.job.get("max_age_days", 30)
+            self.min_age_seconds = self.min_age_days * 86400
             self.max_age_seconds = self.max_age_days * 86400
             self.force = self.syncer.force
             self.state = 0
@@ -130,13 +132,19 @@ class syncer:
             last_success_age = now_timestamp - last_success
 
             ## Last run too young - skip this run
-            if last_success_age < self.max_age_seconds:
+            if last_success_age < self.min_age_seconds:
                 self.syncer.logger.debug(f"{self.title}: SKIPPED - too recent (last success on "
                       f"{time.strftime('%Y-%m-%d at %H:%M:%S', time.localtime(last_success))})")
                 return False
 
             ## Last run too old - need a run
-            self.syncer.logger.debug(f"{self.title}: TO RUN - too old (last success on "
+            if last_success_age >= self.max_age_seconds:
+                self.syncer.logger.debug(f"{self.title}: FORCED RUN - too old (last success on "
+                      f"{time.strftime('%Y-%m-%d at %H:%M:%S', time.localtime(last_success))})")
+                self.force = True
+                return True
+
+            self.syncer.logger.debug(f"{self.title}: TO RUN - just in time (last success on "
                   f"{time.strftime('%Y-%m-%d at %H:%M:%S', time.localtime(last_success))})")
             return True
 

@@ -23,7 +23,8 @@ jobs:
     type: sync
     source: wasabi
     target: aws
-    max_age_days: 1
+    min_age_days: 1
+    max_age_days: 2
     create_subfolder: true
     buckets:
       wasabi: "bucket_trop_bien"
@@ -32,7 +33,8 @@ jobs:
     type: sync
     source: wasabi
     target: aws
-    max_age_days: 1
+    min_age_days: 1
+    max_age_days: 2
     create_subfolder: true
     buckets:
       wasabi: "autre_bucket_de_ouf"
